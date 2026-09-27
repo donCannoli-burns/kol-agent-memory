@@ -76,7 +76,7 @@ python3 ~/.kolmafia/scripts/kol-agent-memory/bootstrap_exact_tree.py sync
 
 ## Relay UI
 
-Open the relay browser and choose `kol-agent-memory` from the relay-script selector.
+Open the relay browser and choose `kol-agent-memory-relay` from the relay-script selector.
 
 The relay UI is deliberately local and conservative. It can:
 
