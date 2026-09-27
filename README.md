@@ -88,6 +88,73 @@ The relay UI is deliberately local and conservative. It can:
 
 It does **not** send chat, kmail, trade, combat, or arbitrary game commands.
 
+## v1 verified checkpoint
+
+Verified live on KoLmafia **r29301** on 2026-09-27.
+
+The complete install/bootstrap path succeeded:
+
+```text
+git checkout https://github.com/donCannoli-burns/kol-agent-memory
+call kol-agent-memory.ash setup
+```
+
+Then from the local shell:
+
+```bash
+python3 ~/.kolmafia/scripts/kol-agent-memory/bootstrap_exact_tree.py install
+```
+
+Then back in gCLI:
+
+```text
+call kol-agent-memory.ash refresh exact-tree-ready
+```
+
+Final verification commands:
+
+```bash
+python3 ~/.kolmafia/scripts/kol-agent-memory/bootstrap_exact_tree.py status
+```
+
+and:
+
+```text
+call kol-agent-memory.ash status
+```
+
+The exact-tree status confirmed all requested index locations as present, including:
+
+```text
+~/.kolmafia/kolmaf-ai/memory/llm-wiki.html5
+~/.kolmafia/data/kolmaf-ai.html5.html5
+~/.kolmafia/sessions/kolmaf-ai.html5
+~/.kolmafia/settings/kolmaf-ai.html5
+~/.kolmafia/scripts/kolmaf-ai.html5
+~/.kolmafia/relay/kolmaf-ai.html5
+~/.kolmafia/data/kolmaf-ai.html5
+~/.kolmafia/ccs/kolmaf-ai.html5
+~/.kolmafia/chats/kolmaf-ai.html5
+~/.kolmafia/.config/kolmaf-ai.html
+```
+
+The KoLmafia-side status also confirmed:
+
+- Git install detected;
+- player context resolved;
+- refresh marker recorded as `exact-tree-ready`;
+- master wiki and agent index paths resolved;
+- relay entrypoint available as `kol-agent-memory-relay`.
+
+### Compatibility fixes verified during first live install
+
+Two first-install issues were found and corrected before the verified checkpoint:
+
+1. The relay script originally shared the basename `kol-agent-memory.ash` with the controller script, causing KoLmafia to report “too many matches.” The relay entrypoint is now uniquely named `kol-agent-memory-relay.ash`.
+2. `path` is a reserved ASH identifier. The controller now uses `file_path` instead.
+
+These fixes are included in current `main`.
+
 ## Memory model
 
 The master `llm-wiki.html5` is the cross-index. It treats memory as four related but distinct planes:
