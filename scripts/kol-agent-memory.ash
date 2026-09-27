@@ -97,7 +97,7 @@ void status() {
     print("  agent index: ~/.kolmafia/data/kolmaf-ai.html5");
     print("  exact-tree bootstrap: " + BOOTSTRAP);
     print("  exact-tree sync: " + SYNC);
-    print("  relay: choose kol-agent-memory in the relay script selector");
+    print("  relay: choose kol-agent-memory-relay in the relay script selector");
 }
 
 void update_project() {
