@@ -26,9 +26,9 @@ buffer page_shell(string title, string zone, string body) {
     return b;
 }
 
-void write_generated(string path, buffer content) {
-    if (!buffer_to_file(content, path)) {
-        print("kol-agent-memory: failed to write " + path, "red");
+void write_generated(string file_path, buffer content) {
+    if (!buffer_to_file(content, file_path)) {
+        print("kol-agent-memory: failed to write " + file_path, "red");
     }
 }
 
