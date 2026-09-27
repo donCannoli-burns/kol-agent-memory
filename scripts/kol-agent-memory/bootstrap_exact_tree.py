@@ -134,6 +134,7 @@ def render_exact(root: Path, player: str) -> None:
     p = desired_paths(root)
     master = p["master"]
 
+    # Create requested hierarchy plus durable/generated subplanes.
     for path in p.values():
         if path.suffix:
             path.parent.mkdir(parents=True, exist_ok=True)
@@ -224,6 +225,7 @@ def render_exact(root: Path, player: str) -> None:
         master_html = master_html.replace(k, v)
     atomic_write(master, master_html)
 
+    # Exact requested per-directory index files. All point back to the master.
     index_specs = {
         "data/kolmaf-ai.html5": ("KoLmaf-AI Data Memory", "SYSTEM · DATA", "Machine-readable/generated agent data plane."),
         "data/kolmaf-ai.html5.html5": ("KoLmaf-AI Agent Data Alias", "AGENT · DATA", "Intentional duplicate-extension agent entry alias."),
@@ -244,6 +246,7 @@ def render_exact(root: Path, player: str) -> None:
         ])
         atomic_write(path, html_page(plane_t, title=title, kicker=kicker, body=body, master=master, path=path))
 
+    # Player-specific directory beneath the literal player/ node.
     player_dir = root / "kolmaf-ai" / "memory" / "env" / "session" / "player" / player
     player_dir.mkdir(parents=True, exist_ok=True)
     player_index = player_dir / "index.html5"
@@ -283,6 +286,7 @@ def status(root: Path) -> int:
 def self_test() -> int:
     with tempfile.TemporaryDirectory(prefix="kol-agent-memory-test-") as td:
         root = Path(td) / ".kolmafia"
+        # Source checkout templates are discovered from __file__.
         render_exact(root, "testplayer")
         rc = status(root)
         master = desired_paths(root)["master"]
